@@ -1,0 +1,48 @@
+
+<div class="container">
+  <div class="col-md-8 mx-auto mt-5">
+      <div class="form-area">  
+        <h2 align="center"  style="color:#069">Welcome to {{ title }}</h2>
+          <mat-card>
+                <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+                  <mat-card-content>
+                    <mat-label>Attachment file</mat-label>
+                    <div class="form-group mt-2">                   
+                      <input type="file" class="form-control-file" id="fileAttachment" formControlName="document" ng2FileSelect accept=".pdf" [uploader]="uploader">
+                    </div>    
+                   
+                    <br>
+                    <div class="drop-zone">
+                    <div ng2FileDrop [uploader]="uploader" class="drop-zone">
+                      Drag and drop files to upload
+                    </div>
+                    </div>
+
+                    <br><br><br>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>File Information</th>&nbsp;&nbsp;
+                          <th>Remove</th>
+                        </tr>
+                      </thead>
+                      <br>
+                      <tbody>
+                      <tr *ngFor="let item of uploader.queue">
+                        <td align="center">
+                          {{ item.file.name}}({{item.file.size/1000000}} MB)
+                        </td>&nbsp;&nbsp;
+                        <td align="center">
+                          <mat-icon (click)="item.remove()">delete</mat-icon>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <br>
+                    <button mat-raised-button color="accent" [disabled]="!uploadForm.valid" type="submit">Upload Data</button>
+                  </mat-card-content>
+                </form>
+          </mat-card>
+      </div>
+  </div>
+</div>
