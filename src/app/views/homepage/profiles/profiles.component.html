@@ -7,38 +7,45 @@
                 <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
                   <mat-card-content>
                     <mat-label>Attachment file</mat-label>
-                    <div class="form-group mt-2">                   
-                      <input type="file" class="form-control-file" id="fileAttachment" formControlName="document" ng2FileSelect accept=".pdf" [uploader]="uploader">
-                    </div>    
+                    <div class="col-md-12">
+                      <div class="form-group mt-2">                   
+                        <input class="form-control"  type="file" id="fileAttachment" formControlName="document" ng2FileSelect accept=".pdf" [uploader]="uploader">
+                      </div>   
+                    </div> 
                    
                     <br>
                     <div class="drop-zone">
-                    <div ng2FileDrop [uploader]="uploader" class="drop-zone">
-                      Drag and drop files to upload
-                    </div>
+                      <div ng2FileDrop [uploader]="uploader" class="drop-zone">
+                        Drag and drop files to upload
+                      </div>
                     </div>
 
-                    <br><br><br>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>File Information</th>&nbsp;&nbsp;
-                          <th>Remove</th>
+                
+                    <div class="form-group mt-2 mb-2">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col-10">File Information</th>&nbsp;&nbsp;
+                            <th scope="col-2">Remove</th>
+                          </tr>
+                        </thead>
+                        <br>
+                        <tbody>
+                        <tr scope="row" *ngFor="let item of uploader.queue">
+                        
+                          <td scope="col-10">
+                            {{ item.file.name}}({{item.file.size/1000000}} MB)
+                          </td>
+                        
+                        
+                          <td scope="col-2">
+                            <mat-icon (click)="item.remove()">delete</mat-icon>
+                          </td>
                         </tr>
-                      </thead>
-                      <br>
-                      <tbody>
-                      <tr *ngFor="let item of uploader.queue">
-                        <td align="center">
-                          {{ item.file.name}}({{item.file.size/1000000}} MB)
-                        </td>&nbsp;&nbsp;
-                        <td align="center">
-                          <mat-icon (click)="item.remove()">delete</mat-icon>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                    <br>
+                        </tbody>
+                      </table>
+                    </div>
+                 
                     <button mat-raised-button color="accent" [disabled]="!uploadForm.valid" type="submit">Upload Data</button>
                   </mat-card-content>
                 </form>
